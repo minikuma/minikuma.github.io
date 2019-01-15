@@ -96,20 +96,27 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Drills&#39;Blog">
-<meta property="og:url" content="https://minikuma.github.io/index.html">
+  <meta name="description" content="이번 포스팅은 Effective-java 3rd(Joshua Bloch)를 읽고 정리한 내용이다. Effective-java의 구성은 Java를 구현할 때 생각해 봐야 할 규칙들을 정의하고 해당 규칙을 적용했을 때의 장점들을 정리하고 있다. 결국 Java에 대한 여러 가지 관점을 제시한 책이다. 필자는 책에서 소개하는 여러 가지 관점들을 정리하면서 포스팅할">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Effective-java] Static Factory Method">
+<meta property="og:url" content="https://minikuma.github.io/2019/01/15/java-effective-190115/index.html">
 <meta property="og:site_name" content="Drills&#39;Blog">
+<meta property="og:description" content="이번 포스팅은 Effective-java 3rd(Joshua Bloch)를 읽고 정리한 내용이다. Effective-java의 구성은 Java를 구현할 때 생각해 봐야 할 규칙들을 정의하고 해당 규칙을 적용했을 때의 장점들을 정리하고 있다. 결국 Java에 대한 여러 가지 관점을 제시한 책이다. 필자는 책에서 소개하는 여러 가지 관점들을 정리하면서 포스팅할">
 <meta property="og:locale" content="ko">
+<meta property="og:image" content="https://user-images.githubusercontent.com/20740884/51237898-d7fefd00-19b8-11e9-95e4-5c73f0abb224.JPG">
+<meta property="og:updated_time" content="2019-01-15T09:18:32.567Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Drills&#39;Blog">
+<meta name="twitter:title" content="[Effective-java] Static Factory Method">
+<meta name="twitter:description" content="이번 포스팅은 Effective-java 3rd(Joshua Bloch)를 읽고 정리한 내용이다. Effective-java의 구성은 Java를 구현할 때 생각해 봐야 할 규칙들을 정의하고 해당 규칙을 적용했을 때의 장점들을 정리하고 있다. 결국 Java에 대한 여러 가지 관점을 제시한 책이다. 필자는 책에서 소개하는 여러 가지 관점들을 정리하면서 포스팅할">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/20740884/51237898-d7fefd00-19b8-11e9-95e4-5c73f0abb224.JPG">
 
 
 
 
 
 
-  <link rel="canonical" href="https://minikuma.github.io/">
+  <link rel="canonical" href="https://minikuma.github.io/2019/01/15/java-effective-190115/">
 
 
 
@@ -119,7 +126,7 @@
   };
 </script>
 
-  <title>Drills'Blog</title>
+  <title>[Effective-java] Static Factory Method | Drills'Blog</title>
   
 
 
@@ -167,8 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -210,7 +216,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -281,9 +287,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -315,10 +321,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/15/java-effective-190115/" class="post-title-link" itemprop="url">[Effective-java] Static Factory Method</a>
+          <h1 class="post-title" itemprop="name headline">[Effective-java] Static Factory Method
+
               
             
           </h1>
@@ -394,9 +398,7 @@
       
 
       
-        
-          
-            <p>이번 포스팅은 Effective-java 3rd(Joshua Bloch)를 읽고 정리한 내용이다. Effective-java의 구성은 Java를 구현할 때 생각해 봐야 할 규칙들을 정의하고 해당 규칙을 적용했을 때의 장점들을 정리하고 있다. 결국 Java에 대한 여러 가지 관점을 제시한 책이다. 필자는 책에서 소개하는 여러 가지 관점들을 정리하면서 포스팅할 예정이다.</p>
+        <p>이번 포스팅은 Effective-java 3rd(Joshua Bloch)를 읽고 정리한 내용이다. Effective-java의 구성은 Java를 구현할 때 생각해 봐야 할 규칙들을 정의하고 해당 규칙을 적용했을 때의 장점들을 정리하고 있다. 결국 Java에 대한 여러 가지 관점을 제시한 책이다. 필자는 책에서 소개하는 여러 가지 관점들을 정리하면서 포스팅할 예정이다.</p>
 <h2 id="규칙1-생성자-대신-정적-팩토리-메소드를-사용할-수-없는-지-생각해-보자"><a href="#규칙1-생성자-대신-정적-팩토리-메소드를-사용할-수-없는-지-생각해-보자" class="headerlink" title="규칙1) 생성자 대신 정적 팩토리 메소드를 사용할 수 없는 지 생각해 보자."></a><em>규칙1) 생성자 대신 정적 팩토리 메소드를 사용할 수 없는 지 생각해 보자.</em></h2><ol>
 <li>장점1</li>
 <li>장점2</li>
@@ -535,8 +537,6 @@
 <p>필자도 하위 객체를 어떻게 리턴할지 정확하게 감이 오질 않았다. 하지만 실제 코드로 구현한 결과를 보면 Drill 클래스의 하위 클래스인 BarDrill도 정적 팩토리 메소드로 생성이 가능함을 알 수 있다.   </p>
 <h3 id="장점5-객체의-클래스의-리턴-값이-Static-Method-작성-시점에-존재하지-않아도-된다"><a href="#장점5-객체의-클래스의-리턴-값이-Static-Method-작성-시점에-존재하지-않아도-된다" class="headerlink" title="장점5) 객체의 클래스의 리턴 값이 Static Method 작성 시점에 존재하지 않아도 된다."></a>장점5) 객체의 클래스의 리턴 값이 Static Method 작성 시점에 존재하지 않아도 된다.</h3><p>“장점3)”, “장점4)”와 관련된 장점이고 결국 객체의 유연함에 대한 이야기 이다. Static Method안에서 다른 인스턴스를 Runtime 시에 공급받을 수도 있다. 해당 내용은 Service Loader에 관한 내용인데, 해당 내용은 다음 포스팅에서 다룰 예정이다.   </p>
 
-          
-        
       
     </div>
 
@@ -557,254 +557,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://minikuma.github.io/2019/01/15/java-servlet-19014/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="minikuma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/minikuma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Drills'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/15/java-servlet-19014/" class="post-title-link" itemprop="url">[java] Servlet</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">작성일</span>
-              
-
-              
-                
-              
-
-              <time title="Post created: 2019-01-15 11:07:23 / Updated at: 15:04:06" itemprop="dateCreated datePublished" datetime="2019-01-15T11:07:23+09:00">2019-01-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/java/" rel="tag"># java</a>
           
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <a href="/2019/01/15/java-servlet-19014/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">댓글: </span> <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/01/15/java-servlet-19014/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>이번 포스팅은 Servlet에 대해 알아보려고 한다. 필자도 Servlet을 WAS(Web Application Server) 혹은 Container 등으로 막연하게 알고 있었다. 이번 기회에 Servlet에 대해 정리를 해 보려고 한다.   </p>
-<h2 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h2><ol>
-<li>Servlet Background &amp; Definition</li>
-<li>Servlet Process</li>
-<li>Servlet Life Cycle</li>
-<li>Servlet Example in java</li>
-<li>Servlet Concurrency</li>
-<li>Apply Servlet Annotation   </li>
-</ol>
-<h3 id="Servlet-Background-amp-Definition"><a href="#Servlet-Background-amp-Definition" class="headerlink" title="Servlet Background &amp; Definition"></a>Servlet Background &amp; Definition</h3><p>Servlet은 Web Programming을 java를 이용하여 구현하기 위해 탄생하였다. 그래서 어떤 사람은 Servlet을 CGI(Common Gateway Interface) Program이라고 부르기도 한다. Servlet은 HTTP Protocol을 지원하는 <code>javax.servlet.http.HttpServlet</code> 클래스를 상속하여 기능을 구현할 수 있다.   </p>
-<h3 id="Servlet-Process"><a href="#Servlet-Process" class="headerlink" title="Servlet Process"></a>Servlet Process</h3><p><img src="https://user-images.githubusercontent.com/20740884/51011860-a0014f80-159d-11e9-81ec-24ff54f66018.JPG" alt=""><br>1) Web Server는 클라이언트로부터 받은 HTTP 요청을 Web Container(Servlet Container)에게 위임한다.    </p>
-<ul>
-<li>Web Container는 먼저 <code>web.xml</code> 파일을 확인한다.<br>(어떤 URL로 Mapping해야 할지, 어떤 Servlet을 Container에 등록해야 할지)   </li>
-</ul>
-<p>2) Web Container는 <code>web.xml</code>에 명시되어 있는 Servlet 객체를 찾아 해당 객체를 메모리에 로딩한다.   </p>
-<ul>
-<li>Web Container는 적당한 Servlet을 찾아 컴파일(.class)한다.   </li>
-<li>메모리 로딩 시, <code>init()</code> 메소드를 실행하여 객체를 초기화 한다.   </li>
-</ul>
-<p>3) Web Container는 클라이언트로부터 HTTP 요청을 받을 때마다 Thread를 생성한다.    </p>
-<ul>
-<li>여러 개의 Thread가 생성된다.   </li>
-<li>각 Thread는 단일 객체에 대해 Servlet <code>service()</code> 메소드를 실행한다.<br>참고적으로 Web Container가 생성하는 Thread의 역할은 클라이언트로부터 요청된 HTTP 타입(GET/POST/PUT/DELETE 등)에 따라 (doGet/doPost/doPut/doDelete 등)을 호출한다. 메소드에 응답을 받게 되면 Thread는 소멸되거나, Thread Poll에 자원을 반납한다.   </li>
-</ul>
-<p><strong>결론적으로 WAS(Web Application Server)는 Web Container + Servlet으로 볼 수 있다.</strong>   </p>
-<h3 id="Servlet-Life-Cycle"><a href="#Servlet-Life-Cycle" class="headerlink" title="Servlet Life Cycle"></a>Servlet Life Cycle</h3><p><img src="https://user-images.githubusercontent.com/20740884/51012604-5581d200-15a1-11e9-8256-67cff7c719d8.JPG" alt=""><br>1) <code>init()</code> 메소드   </p>
-<ul>
-<li>한번 만 실행된다.   </li>
-<li>클라이언트 요청에 따라 적절한 Servlet이 생생되고 메모리에 로딩될 때 실행된다.   </li>
-<li>객체를 초기화한다.<br>간혹 Servlet 객체가 초기화 되지 않았다는 에러를 만날수 있는데, 보통 Servlet이 초기화 되지 않았다는 의미는 1) 초기화 되는 중(생성자 실행 중, <code>init()</code>메소드 실행 중) 2) 소멸되는 중(<code>destroy()</code>메소드 실행 중) 3) 존재하지 않음(does not exist)으로 볼 수 있다.   </li>
-</ul>
-<p>2) <code>service()</code> 메소드   </p>
-<ul>
-<li>Servlet이 수신한 모든 요청에 대해 실행된다.(각 Thread 당)   </li>
-<li>클라이언트로부터 수신된 HTTP 타입(GET/GET/DELETE 등)에 따라 적절한 메소드(doGet/doPost/doDelete)가 호출된다.   </li>
-<li>호출된 메소드에 대한 응답을 받으면 해당 Thread는 소멸 혹은 Thread Pool에 자원을 반납한다.   </li>
-</ul>
-<p>3) <code>destroy()</code> 메소드   </p>
-<ul>
-<li>한번 만 실행된다.   </li>
-<li>메모리에 로딩된 Servlet 객체를 제거한다.   </li>
-</ul>
-<h3 id="Servlet-Example-in-java"><a href="#Servlet-Example-in-java" class="headerlink" title="Servlet Example in java"></a>Servlet Example in java</h3><p>간단한 예제를 만들어 보려고 한다. 클라이언트로부터 요청받은 Address, Host, URL정보를 Web상에 출력하는 예제이다. 예제를 구현하기 위해 먼저 <code>javax.servlet.http.HttpServlet</code> 클래스를 상속받고 여러 메소드 중에 doGet() 메소드를 재 정의하여 사용하였다.   </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ExampleServlet.java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExampleServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="comment">//doGet 재 정의</span></span><br><span class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        resp.setContentType(<span class="string">"text/html; charset=UTF-8"</span>);</span><br><span class="line">        <span class="comment">// Response 객체의 PrintWriter를 사용해 브라우저에 HTML을 출력한다.</span></span><br><span class="line">        PrintWriter out = resp.getWriter();</span><br><span class="line">        out.println(<span class="string">"&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;HelloServlet&lt;/TITLE&gt;&lt;/HEAD&gt;"</span>);</span><br><span class="line">        out.println(<span class="string">"&lt;BODY&gt;"</span>);</span><br><span class="line">        out.println(<span class="string">"&lt;H2&gt; Clinet IP: "</span> + req.getRemoteAddr() + <span class="string">"&lt;/H2&gt;"</span>);</span><br><span class="line">        out.println(<span class="string">"&lt;H2&gt; Client Host : "</span> + req.getRemoteHost() + <span class="string">"&lt;/H2&gt;"</span>);</span><br><span class="line">        out.println(<span class="string">"&lt;H2&gt; Request URI : "</span> + req.getRequestURI() + <span class="string">"&lt;/H2&gt;"</span>);</span><br><span class="line">        out.println(<span class="string">"&lt;/BODY&gt;&lt;/HTML&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<pre><code class="xml">web.xml
-<span class="tag">&lt;<span class="name">servlet</span>&gt;</span> <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>me.spring5.mvc.ExampleServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">servlet</span>&gt;</span>
-<span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span>
-</code></pre>
-<p>Servlet name은 <code>hello</code>, Servlet URL Mapping은 <code>/</code> ROOT URL로 정의하였다.   </p>
-<pre><code class="java">http:<span class="comment">//localhost:8080/</span>
-</code></pre>
-<p><img src="https://user-images.githubusercontent.com/20740884/51013619-ec04c200-15a6-11e9-9e9c-febad017e03f.JPG" alt="">   </p>
-<h3 id="Servlet-Concurrency"><a href="#Servlet-Concurrency" class="headerlink" title="Servlet Concurrency"></a>Servlet Concurrency</h3><p><img src="https://user-images.githubusercontent.com/20740884/51014652-3a688f80-15ac-11e9-85c6-139c57b0b540.JPG" alt=""><br>보통 Web Application은 Multi-Thread 환경이고, 여러 Thread는 하나의 Servlet을 공유할 수 있기 때문에 병행성 제어(Concurrency Control)가 필요하다. 위 그림에서 보면 static, member 변수는 공유자원이기 때문에 <code>service()</code> 메소드안에서 사용 시에 상호 배제가 필요하다. 상호 배제란 공유를 하면 안되는 자원(Resource)의 동시 사용을 피하는 방법이다. 추후에 상호 배제에 대한 내용을 공부하면서 푸가 포스팅을 할 예정이다.      </p>
-<h3 id="Apply-Servlet-Annotation"><a href="#Apply-Servlet-Annotation" class="headerlink" title="Apply Servlet Annotation"></a>Apply Servlet Annotation</h3><p>기존 web.xml에서 정의한 servlet class, URL Mapping을 아래와 같이 <code>@WebServlet</code> Annotation으로도 구현이 가능하다.   </p>
-<pre><code class="xml">web.xml
-<span class="tag">&lt;<span class="name">servlet</span>&gt;</span> <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>me.spring5.mvc.ExampleServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">servlet</span>&gt;</span>
-<span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span>
-</code></pre>
-<pre><code class="java">ExampleServlet.java
-<span class="meta">@WebServlet</span>(<span class="string">"/"</span>)
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExampleServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>{
-    <span class="comment">//doGet 재 정의</span>
-    <span class="meta">@Override</span> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>{
-        resp.setContentType(<span class="string">"text/html; charset=UTF-8"</span>);
-        <span class="comment">// Response 객체의 PrintWriter를 사용해 브라우저에 HTML을 출력한다.</span>
-        PrintWriter out = resp.getWriter();
-        out.println(<span class="string">"&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;HelloServlet&lt;/TITLE&gt;&lt;/HEAD&gt;"</span>);
-        out.println(<span class="string">"&lt;BODY&gt;"</span>);
-        out.println(<span class="string">"&lt;H2&gt; Clinet IP: "</span> + req.getRemoteAddr() + <span class="string">"&lt;/H2&gt;"</span>);
-        out.println(<span class="string">"&lt;H2&gt; Client Host : "</span> + req.getRemoteHost() + <span class="string">"&lt;/H2&gt;"</span>);
-        out.println(<span class="string">"&lt;H2&gt; Request URI : "</span> + req.getRequestURI() + <span class="string">"&lt;/H2&gt;"</span>);
-        out.println(<span class="string">"&lt;/BODY&gt;&lt;/HTML&gt;"</span>);
-    }
-}
-</code></pre>
-<p>해당 annotation에 대해 부연 설명을 하자만 Servlet 3.0+ API에서 <code>javax.servlet.annotaion</code> Package를 도입하였고, 해당 Package는 Tomcat 7.0+에서 사용가능하다. Servlet을 선언하는 <code>@WebServlet</code>과 초기화 매개변수를 지정할 수 있는 <code>@WebInitParam</code> annotation type을 지원한다.   </p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/15/java-servlet-19014/" rel="next" title="[java] Servlet">
+                <i class="fa fa-chevron-left"></i> [java] Servlet
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -814,14 +596,22 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -842,8 +632,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            목차
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            흝어보기
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -941,6 +740,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#규칙1-생성자-대신-정적-팩토리-메소드를-사용할-수-없는-지-생각해-보자"><span class="nav-number">1.</span> <span class="nav-text">규칙1) 생성자 대신 정적 팩토리 메소드를 사용할 수 없는 지 생각해 보자.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#장점1-생성자와는-달리-메소드에는-이름-name-이-있다"><span class="nav-number">1.1.</span> <span class="nav-text">장점1) 생성자와는 달리 메소드에는 이름(name)이 있다.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#장점2-생성자와는-달리-호출할-때마다-새로운-객체를-생성할-필요가-없다"><span class="nav-number">1.2.</span> <span class="nav-text">장점2) 생성자와는 달리 호출할 때마다 새로운 객체를 생성할 필요가 없다.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#장점3-해당-객체의-하위-타입을-리턴할-수-있다"><span class="nav-number">1.3.</span> <span class="nav-text">장점3) 해당 객체의 하위 타입을 리턴할 수 있다.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#장점4-“장점3-”과-연관성-있는-장점으로-리턴하는-객체의-클래스가-입력-매개변수에-따라-다른-리턴값을-가지게-할-수-있다"><span class="nav-number">1.4.</span> <span class="nav-text">장점4) “장점3)”과 연관성 있는 장점으로 리턴하는 객체의 클래스가 입력 매개변수에 따라 다른 리턴값을 가지게 할 수 있다.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#장점5-객체의-클래스의-리턴-값이-Static-Method-작성-시점에-존재하지-않아도-된다"><span class="nav-number">1.5.</span> <span class="nav-text">장점5) 객체의 클래스의 리턴 값이 Static Method 작성 시점에 존재하지 않아도 된다.</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1068,6 +884,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -1081,9 +901,28 @@
   <script id="dsq-count-scr" src="https://https-minikuma-github-io.disqus.com/count.js" async></script>
 
 
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://minikuma.github.io/2019/01/15/java-effective-190115/";
+    this.page.identifier = "2019/01/15/java-effective-190115/";
+    this.page.title = '[Effective-java] Static Factory Method';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-minikuma-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
 
 
 
+
+
+  
 
 
   
