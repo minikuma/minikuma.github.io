@@ -108,7 +108,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/20740884/51012604-5581d200-15a1-11e9-8256-67cff7c719d8.JPG">
 <meta property="og:image" content="https://user-images.githubusercontent.com/20740884/51013619-ec04c200-15a6-11e9-9e9c-febad017e03f.JPG">
 <meta property="og:image" content="https://user-images.githubusercontent.com/20740884/51014652-3a688f80-15ac-11e9-85c6-139c57b0b540.JPG">
-<meta property="og:updated_time" content="2019-02-26T05:06:34.441Z">
+<meta property="og:updated_time" content="2019-03-12T08:54:00.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[java] Servlet">
 <meta name="twitter:description" content="이번 포스팅은 Servlet에 대해 알아보려고 한다. 필자도 Servlet을 WAS(Web Application Server) 혹은 Container 등으로 막연하게 알고 있었다. 이번 기회에 Servlet에 대해 정리를 해 보려고 한다.    Goal Servlet Background &amp;amp; Definition Servlet Process Servle">
@@ -384,7 +384,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Updated at: 2019-02-26 14:06:34" itemprop="dateModified" datetime="2019-02-26T14:06:34+09:00">2019-02-26</time>
+                <time title="Updated at: 2019-03-12 17:54:00" itemprop="dateModified" datetime="2019-03-12T17:54:00+09:00">2019-03-12</time>
               
             
           </span>
@@ -487,7 +487,7 @@
 <pre><code class="java">http:<span class="comment">//localhost:8080/</span>
 </code></pre>
 <p><img src="https://user-images.githubusercontent.com/20740884/51013619-ec04c200-15a6-11e9-9e9c-febad017e03f.JPG" alt="">   </p>
-<h3 id="Servlet-Concurrency"><a href="#Servlet-Concurrency" class="headerlink" title="Servlet Concurrency"></a>Servlet Concurrency</h3><p><img src="https://user-images.githubusercontent.com/20740884/51014652-3a688f80-15ac-11e9-85c6-139c57b0b540.JPG" alt=""><br>보통 Web Application은 Multi-Thread 환경이고, 여러 Thread는 하나의 Servlet을 공유할 수 있기 때문에 병행성 제어(Concurrency Control)가 필요하다. 위 그림에서 보면 static, member 변수는 공유자원이기 때문에 <code>service()</code> 메소드안에서 사용 시에 상호 배제가 필요하다. 상호 배제란 공유를 하면 안되는 자원(Resource)의 동시 사용을 피하는 방법이다. 추후에 상호 배제에 대한 내용을 공부하면서 푸가 포스팅을 할 예정이다.      </p>
+<h3 id="Servlet-Concurrency"><a href="#Servlet-Concurrency" class="headerlink" title="Servlet Concurrency"></a>Servlet Concurrency</h3><p><img src="https://user-images.githubusercontent.com/20740884/51014652-3a688f80-15ac-11e9-85c6-139c57b0b540.JPG" alt=""><br>보통 Web Application은 Multi-Thread 환경이고, 여러 Thread는 하나의 Servlet을 공유할 수 있기 때문에 병행성 제어(Concurrency Control)가 필요하다. 위 그림에서 보면 static, member 변수는 공유자원이기 때문에 <code>service()</code> 메소드안에서 사용 시에 상호 배제가 필요하다. 상호 배제란 공유를 하면 안되는 자원(Resource)의 동시 사용을 피하는 방법이다. 추후에 상호 배제에 대한 내용을 공부하면서 추가 포스팅을 할 예정이다.      </p>
 <h3 id="Apply-Servlet-Annotation"><a href="#Apply-Servlet-Annotation" class="headerlink" title="Apply Servlet Annotation"></a>Apply Servlet Annotation</h3><p>기존 web.xml에서 정의한 servlet class, URL Mapping을 아래와 같이 <code>@WebServlet</code> Annotation으로도 구현이 가능하다.   </p>
 <pre><code class="xml">web.xml
 <span class="tag">&lt;<span class="name">servlet</span>&gt;</span> <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>
