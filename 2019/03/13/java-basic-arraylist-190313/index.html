@@ -99,14 +99,14 @@
   <meta name="description" content="이번 포스팅은 java에서 많이 사용하는 자료구조 중에 하나인 ArrayList에 대해 알아 보려고 한다. ArrayList 자료 구조에 대해 내가 놓치고 있던 것들이 무엇인지, ArrayList의 진면목(?)을 좀 살펴 볼 예정이다.    무작정 ArrayList API 까 보자. API에는 무엇이 적혀져 있나?  가변 크기 배열 Doubling 전략 M">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Java] ArrayList 다시 보기">
+<meta property="og:title" content="[Java] ArrayList는 무엇인가?">
 <meta property="og:url" content="https://minikuma.github.io/2019/03/13/java-basic-arraylist-190313/index.html">
 <meta property="og:site_name" content="Drills&#39;Blog">
 <meta property="og:description" content="이번 포스팅은 java에서 많이 사용하는 자료구조 중에 하나인 ArrayList에 대해 알아 보려고 한다. ArrayList 자료 구조에 대해 내가 놓치고 있던 것들이 무엇인지, ArrayList의 진면목(?)을 좀 살펴 볼 예정이다.    무작정 ArrayList API 까 보자. API에는 무엇이 적혀져 있나?  가변 크기 배열 Doubling 전략 M">
 <meta property="og:locale" content="ko">
-<meta property="og:updated_time" content="2019-03-15T04:27:17.561Z">
+<meta property="og:updated_time" content="2019-03-19T01:46:58.564Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Java] ArrayList 다시 보기">
+<meta name="twitter:title" content="[Java] ArrayList는 무엇인가?">
 <meta name="twitter:description" content="이번 포스팅은 java에서 많이 사용하는 자료구조 중에 하나인 ArrayList에 대해 알아 보려고 한다. ArrayList 자료 구조에 대해 내가 놓치고 있던 것들이 무엇인지, ArrayList의 진면목(?)을 좀 살펴 볼 예정이다.    무작정 ArrayList API 까 보자. API에는 무엇이 적혀져 있나?  가변 크기 배열 Doubling 전략 M">
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>[Java] ArrayList 다시 보기 | Drills'Blog</title>
+  <title>[Java] ArrayList는 무엇인가? | Drills'Blog</title>
   
 
 
@@ -336,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">[Java] ArrayList 다시 보기
+          <h1 class="post-title" itemprop="name headline">[Java] ArrayList는 무엇인가?
 
               
             
@@ -379,7 +379,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Updated at: 2019-03-15 13:27:17" itemprop="dateModified" datetime="2019-03-15T13:27:17+09:00">2019-03-15</time>
+                <time title="Updated at: 2019-03-19 10:46:58" itemprop="dateModified" datetime="2019-03-19T10:46:58+09:00">2019-03-19</time>
               
             
           </span>
@@ -473,8 +473,8 @@
 oldCapacity &gt;&gt; <span class="number">1</span>    
 <span class="number">1010</span> (<span class="number">10</span>의 이진수)의 오른쪽으로 <span class="number">1</span>만큼 이동 -&gt; <span class="number">0101</span> (<span class="number">5</span>)                   
 </code></pre>
-<p>결국 일반화를 하면, <code>newCapacity = oldCapacity + (oldCapacity / 2)</code>로 나타낼 수 있다.<br>참고적으로 <code>elementData = Arrays.copyOf(elementData, newCapacity);</code> 이 코딩을 보면 자동 증가 배열은 기존 배열을 복사한 새로운 배열임을 알 수 있다.    </p>
-<h3 id="Doubling-전략"><a href="#Doubling-전략" class="headerlink" title="Doubling 전략"></a>Doubling 전략</h3><p>새로운 배열을 만드는 전략을 Doubling으로 가지고 가도 동일한 효과를 줄 수 있을까? 사실 자바 버전에 따라 newCapacity를 구하는 전략은 다를 수 있다. 그렇다면 Doubling 전략은 무엇인가? 말 그대로 자동 증가 시점에 배열의 크기를 2배로 늘리는 전략이다. 위 <code>grow</code> 메소드도 Doubling 전략을 사용한다면 <code>int newCapacity = oldCapacity * 2;</code>로 수정이 된다. 결국 Doubling, <code>grow</code> 메소드에서 사용한 Half 모두 상수배만큼 배열을 자동으로 조정해 주는 거라 일반화 할 수 있다. 여기서 한 가지 문제가 발생한다. ArrayList에서는 임의의 접근인 경우 O(1)의 성능을 보여 준다. 하지만 위에서 언급했듯이 ArrayList는 배열의 크기를 동적으로 조정할 수 있다. 만약 동적으로 할당된 상태에서도 기존 처럼 O(1)의 성능을 보여 줄 수 있을까? 이를 검증하기 위해서는 <code>상환입력시간</code>이라는 개념이 필요하다. 이 포스팅에서는 <code>상환입력시간</code>이라는 개념에 대해서는 깊에 다루지 않는다. 간략하게 <code>상환입력시간</code>은 Best Case와 Worst Case를 모두 고려한 <code>평균적인 성능치</code>정도로 생각하자. 여기서 Best Case는 O(1)이다. Worst Case는 배열의 길이(N)에 영향을 받음으로 O(N)으로 나타낼 수 있다. 이제 <code>평균적인 성능치</code>를 단계 별로 생각하며 구해 보면 아래와 같이 나타낼 수 있다.    </p>
+<p>결국 일반화를 하면, <code>newCapacity = oldCapacity + (oldCapacity / 2)</code>로 나타낼 수 있다.<br>참고적으로 <code>elementData = Arrays.copyOf(elementData, newCapacity);</code> 이 코딩을 보면 자동 증가 배열은 기존 배열을 복사한 새로운 배열임을 알 수 있다. (새로 할당된 배열에 이전 배열 요소를 옮기는 비용이 추가 됨을 의미)    </p>
+<h3 id="Doubling-전략"><a href="#Doubling-전략" class="headerlink" title="Doubling 전략"></a>Doubling 전략</h3><p>새로운 배열을 만드는 전략을 Doubling으로 가지고 가도 동일한 효과를 줄 수 있을까? 사실 자바 버전에 따라 newCapacity를 구하는 전략은 다를 수 있다. 그렇다면 Doubling 전략은 무엇인가? 말 그대로 자동 증가 시점에 배열의 크기를 2배로 늘리는 전략이다. 위 <code>grow</code> 메소드도 Doubling 전략을 사용한다면 <code>int newCapacity = oldCapacity * 2;</code>로 수정이 된다. 결국 Doubling, <code>grow</code> 메소드에서 사용한 Half, 모두 상수배만큼 배열을 자동으로 조정해 주는 거라 일반화 할 수 있다. 여기서 한 가지 문제가 발생한다. ArrayList에서는 임의의 접근인 경우 O(1)의 성능을 보여 준다. 하지만 위에서 언급했듯이 ArrayList는 배열의 크기를 동적으로 조정할 수 있다. 만약 동적으로 할당된 상태에서도 기존 처럼 O(1)의 성능을 보여 줄 수 있을까? 이를 검증하기 위해서는 <code>상환입력시간</code>이라는 개념이 필요하다. 이 포스팅에서는 <code>상환입력시간</code>이라는 개념에 대해서는 깊에 다루지 않는다. 간략하게 <code>상환입력시간</code>은 Best Case와 Worst Case를 모두 고려한 <code>평균적인 성능치</code>정도로 생각하자. 여기서 Best Case는 O(1)이다. Worst Case는 배열의 길이(N)에 영향을 받음으로 O(N)으로 나타낼 수 있다. 이제 <code>평균적인 성능치</code>를 단계 별로 구해 보면 아래와 같이 나타낼 수 있다.    </p>
 <pre><code class="java"> 현재 상황에서 배열의 크기 조정 후 원소를 복사하는 데 드는 비용: N * t
  그 전 상황에서 배열의 크기 조정 후 원소를 복사하는 데 드는 비용: N/<span class="number">2</span> * t
  그 전 상황에서 배열의 크기 조정 후 원소를 복사하는 데 드는 비용: N/<span class="number">4</span> * t
@@ -484,7 +484,20 @@ oldCapacity &gt;&gt; <span class="number">1</span>
 </code></pre>
 <p>결국 <code>평균적인 성능치</code>인 <code>상환입력시간</code>으로 계산한 경우 O(1)이다. Doubling(*2), Half(1/2)와 같은 상수배 전략도 같은 결과를 유추해 볼 수 있다.   </p>
 <h3 id="Multithreading"><a href="#Multithreading" class="headerlink" title="Multithreading"></a>Multithreading</h3><p>API 문서를 보면, <strong>ArrayList는 synchoronized가 아니다.</strong> 만약 멀티 스레드 환경에서 ArrayList 인스턴스에 동시에 접근하고 적어도 하나의 스레드라도 리스트의 구조를 수정하는 경우 외부에서 동기화를 구현해 주어야 한다.(리스트의 구조 수정은 element 추가, 삭제, 내부 배열 크기 수정, 값의 변경은 아님) 일반적으로 List Object를 synchoronized하는 방식으로 하면 해결할 수 있다. 만약 Object가 별도로 없다면 List를 Collections.synchronizedList 메소드로 Wrapping 하면 된다. Vector를 사용하면 된다고 하는데, 다음 기회에 Vector도 다뤄 보도록 하겠다.   </p>
-<h3 id="Fail-Fast"><a href="#Fail-Fast" class="headerlink" title="Fail-Fast"></a>Fail-Fast</h3><h3 id="나의-ArrayList-만들기"><a href="#나의-ArrayList-만들기" class="headerlink" title="나의 ArrayList 만들기"></a>나의 ArrayList 만들기</h3><p>이제 제공해 준 ArrayList가 아닌 나만의 ArrayList를 구현해 보자. 기본적인 내용은 java 1.8 API를 참고 하였다.   </p>
+<h3 id="Fail-Fast"><a href="#Fail-Fast" class="headerlink" title="Fail-Fast"></a>Fail-Fast</h3><p>ArrayList 클래스도 Collection 클래스의 특징을 모두 가지고 있다. Collection 객체는 저장된 객체들에 대한 순차적인 접근을 제공하는데, 순차적인 접근이 끝나기 전에 Collection 구조적인 변경(객체의 추가 혹은 삭제)이 발생하게 되면, 순차적인 접근이 실패(ConcurrentModificationException)하게 된다. 이것이 Fail-Fast라 부른다.  </p>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FailFast</span> </span>{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{
+        ArrayList&lt;Integer&gt; lists = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>));
+        Iterator&lt;Integer&gt; iter = lists.iterator();
+        <span class="keyword">while</span> (iter.hasNext()) {
+            Integer number=  iter.next();
+            lists.add(<span class="number">50</span>);  <span class="comment">// collection 구조 변경</span>
+            System.out.println(number);
+        }
+   }
+}
+</code></pre>
+<h3 id="나의-ArrayList-만들기"><a href="#나의-ArrayList-만들기" class="headerlink" title="나의 ArrayList 만들기"></a>나의 ArrayList 만들기</h3><p>이제 제공해 준 ArrayList가 아닌 나만의 ArrayList를 구현해 보자. 기본적인 내용은 java 1.8 API를 참고 하였다.   </p>
 <ol>
 <li>Default Capacity는 10으로 지정한다.   </li>
 <li>Constructor는 파라미터가 없는 경우, 파라미터(초기 배열 값)가 1개 존재하는 경우를 고려한다.   </li>
@@ -594,6 +607,7 @@ oldCapacity &gt;&gt; <span class="number">1</span>
 }
 </code></pre>
 <p>이번 포스팅에서는 나만의 ArrayList를 구현해 보는 것이 목적이라 위에서 언급했던 Multithreading은 테스트는 별도로 진행해 보지 않았다. ArrayList API가 가지고 있는 핵심적인 특징들을 살펴 보고 그 특징들을 가지고 API를 실제로 구현해 보았다.    </p>
+<p>참고: <a href="https://daehwann.wordpress.com/2016/08/26/java-arraylist/" target="_blank" rel="noopener">https://daehwann.wordpress.com/2016/08/26/java-arraylist/</a>    </p>
 
       
     </div>
@@ -963,7 +977,7 @@ oldCapacity &gt;&gt; <span class="number">1</span>
   var disqus_config = function() {
     this.page.url = "https://minikuma.github.io/2019/03/13/java-basic-arraylist-190313/";
     this.page.identifier = "2019/03/13/java-basic-arraylist-190313/";
-    this.page.title = '[Java] ArrayList 다시 보기';
+    this.page.title = '[Java] ArrayList는 무엇인가?';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
