@@ -3,17 +3,17 @@
 
 
     <sitemap>
-        <loc>https://minikuma.github.io/post-sitemap.xml</loc>
+        <loc>http://yoursite.com/post-sitemap.xml</loc>
         <lastmod>2019-03-19T01:46:58.564Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>https://minikuma.github.io/page-sitemap.xml</loc>
+        <loc>http://yoursite.com/page-sitemap.xml</loc>
         <lastmod>2019-02-26T05:26:43.107Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>https://minikuma.github.io/tag-sitemap.xml</loc>
+        <loc>http://yoursite.com/tag-sitemap.xml</loc>
         <lastmod>2019-03-12T08:54:00.829Z</lastmod>
     </sitemap>
 
