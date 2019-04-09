@@ -2,13 +2,13 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://yoursite.com</loc>
+        <loc>https://minikuma.github.io</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
 
     <url>
-        <loc>http://yoursite.com/2019/03/13/java-basic-arraylist-190313/</loc>
+        <loc>https://minikuma.github.io/2019/03/13/java-basic-arraylist-190313/</loc>
         <lastmod>2019-03-19T01:46:58.564Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -16,7 +16,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2019/01/15/java-servlet-19014/</loc>
+        <loc>https://minikuma.github.io/2019/01/15/java-servlet-19014/</loc>
         <lastmod>2019-03-12T08:54:00.829Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -24,7 +24,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2019/01/15/java-effective-190115/</loc>
+        <loc>https://minikuma.github.io/2019/01/15/java-effective-190115/</loc>
         <lastmod>2019-02-26T05:06:36.341Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

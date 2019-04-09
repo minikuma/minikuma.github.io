@@ -3,14 +3,14 @@
 
 
     <url>
-        <loc>http://yoursite.com/tags/servlet/</loc>
+        <loc>https://minikuma.github.io/tags/servlet/</loc>
         <lastmod>2019-03-12T08:54:00.829Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/java/</loc>
+        <loc>https://minikuma.github.io/tags/java/</loc>
         <lastmod>2019-03-19T01:46:58.564Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
